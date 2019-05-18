@@ -1,13 +1,18 @@
-#!/usr/bin/env python3
-from flask import Flask, render_template
+#!/usr/bin/env python3    
+import json
+from flask import Flask, request, redirect, g, render_template
+import requests
+from urllib.parse import quote
 
+
+PORT = 8081
 app = Flask(__name__)
-
-my_obj = Obj(1,2)
-
+    
 @app.route('/')
-def home(items = my_obj.list_store()):
-    return render_template('index.html', items=items)
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=PORT)
+
+    
