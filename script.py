@@ -17,6 +17,9 @@ SCOPES = "user-read-currently-playing user-read-recently-played"
 HOST = "http://127.0.0.1"
 PORT = "8081"
 
+CURRENT_ACCESS_TOKEN = ""
+CURRENT_REFRESH_TOKEN = " "
+
 REDIRECT_URI = "{}:{}/callback/q".format(HOST, PORT)
 
 def authorize_app():
@@ -43,11 +46,35 @@ def authorize_user():
 
     # Tokens are Returned to Application
     response_data = json.loads(post_request.text)
+    if 'error' in response_data:
+        return False
+    
     access_token = response_data["access_token"]
     refresh_token = response_data["refresh_token"]
     token_type = response_data["token_type"]
     expires_in = response_data["expires_in"]
 
+    CURRENT_REFRESH_TOKEN = refresh_token
+    CURRENT_ACCESS_TOKEN = access_token
     # Use the access token to access Spotify API
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}
     return access_token
+
+
+def request_new_token():
+    payload = {
+        "grant_type" : "refresh_token",
+        "refresh_token" : CURRENT_REFRESH_TOKEN
+    }
+
+    base64encoded = base64.b64encode(("{}:{}".format(CLIENT_ID, CLIENT_SECRET)).encode())
+    headers = {"Authorization": "Basic {}".format(base64encoded.decode())}
+
+    post_request = requests.post(SPOTIFY_TOKEN_URL, data=payload, headers=headers)
+
+    response_data = json.loads(post_request)
+    new_token = response_data['access_token']
+    new_refresh = response_data['refresh_token']
+
+    CURRENT_ACCESS_TOKEN = new_token
+    CURRENT_REFRESH_TOKEN = new_refresh
