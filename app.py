@@ -6,6 +6,9 @@ from flask import Flask, request, redirect, g, render_template
 import requests
 from urllib.parse import quote
 
+CURRENT_ACCESS_TOKEN = ""
+CURRENT_REFRESH_TOKEN = ""
+
 PORT = 8081
 app = Flask(__name__)
 
@@ -20,9 +23,9 @@ def authenticate():
 
 @app.route('/callback/q')
 def callback():
-    authorization_header = authorize_user()
-
-    return render_template('dashboard.html', header=authorization_header)
+    auth = authorize_user()
+    
+    return render_template('auth_done.html', header=authorization_header)
     
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)

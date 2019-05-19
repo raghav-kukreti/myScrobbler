@@ -50,4 +50,4 @@ def authorize_user():
 
     # Use the access token to access Spotify API
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}
-    return authorization_header 
+    return access_token
