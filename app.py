@@ -1,7 +1,7 @@
 #!/usr/bin/env python3    
 import json
-from script import SPOTIFY_AUTH_URL, CLIENT_ID, CLIENT_SECRET, current_access_token, current_refresh_token
-from script import authorize_app, authorize_user, get_user_data
+from script import SPOTIFY_AUTH_URL, CLIENT_ID, CLIENT_SECRET
+from script import authorize_app, authorize_user, get_user_data, get_users_recently_played,get_current_playing
 from flask import Flask, request, redirect, g, render_template, session
 import requests
 from urllib.parse import quote
@@ -33,8 +33,8 @@ def callback():
 @app.route('/dashboard/')
 def dashboard():
     # print(session.get('auth_header', None))
-    \
-    return render_template('dashboard.html', user_data=get_user_data(session.get('auth_header', None)))
+    auth_header = session.get('auth_header', None)
+    return render_template('dashboard.html', user_data=get_user_data(auth_header), current_data=get_current_playing(auth_header))
 
 
 if __name__ == '__main__':
