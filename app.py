@@ -10,7 +10,6 @@ PORT = 8081
 app = Flask(__name__)
 app.secret_key = "youcantguessthislmaoslowthai"
 
-CURRENT_AUTH_HEADER = ""
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -25,7 +24,7 @@ def callback():
     auth = authorize_user()
     if auth == False:
         return render_template('auth_done.html', title="Access token expired!")
-    else:
+    else:   
         session['auth_header'] = auth
         return render_template('auth_done.html', title="Authorization done!")
 
@@ -33,8 +32,9 @@ def callback():
 
 @app.route('/dashboard/')
 def dashboard():
-    print(session.get('auth_header', None))
-    return render_template('dashboard.html', user_data=get_user_data(CURRENT_AUTH_HEADER))
+    # print(session.get('auth_header', None))
+    \
+    return render_template('dashboard.html', user_data=get_user_data(session.get('auth_header', None)))
 
 
 if __name__ == '__main__':
