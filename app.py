@@ -1,14 +1,16 @@
 #!/usr/bin/env python3    
 import json
-from script import SPOTIFY_AUTH_URL, CLIENT_ID, CLIENT_SECRET, CURRENT_ACCESS_TOKEN, CURRENT_REFRESH_TOKEN
-from script import authorize_app, authorize_user
-from flask import Flask, request, redirect, g, render_template
+from script import SPOTIFY_AUTH_URL, CLIENT_ID, CLIENT_SECRET, current_access_token, current_refresh_token
+from script import authorize_app, authorize_user, get_user_data
+from flask import Flask, request, redirect, g, render_template, session
 import requests
 from urllib.parse import quote
 
 PORT = 8081
 app = Flask(__name__)
+app.secret_key = "youcantguessthislmaoslowthai"
 
+CURRENT_AUTH_HEADER = ""
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -24,13 +26,15 @@ def callback():
     if auth == False:
         return render_template('auth_done.html', title="Access token expired!")
     else:
+        session['auth_header'] = auth
         return render_template('auth_done.html', title="Authorization done!")
-    
+
+
 
 @app.route('/dashboard/')
 def dashboard():
-
-    return render_template('dashboard.html')
+    print(session.get('auth_header', None))
+    return render_template('dashboard.html', user_data=get_user_data(CURRENT_AUTH_HEADER))
 
 
 if __name__ == '__main__':

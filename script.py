@@ -10,6 +10,12 @@ SPOTIFY_API_BASE_URL = "https://api.spotify.com"
 API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
+USER_PROFILE_ENDPOINT = "{}/{}".format(SPOTIFY_API_URL, 'me')
+USER_PLAYLISTS_ENDPOINT = "{}/{}".format(USER_PROFILE_ENDPOINT, 'playlists')
+USER_TOP_ARTISTS_AND_TRACKS_ENDPOINT = "{}/{}".format(USER_PROFILE_ENDPOINT, 'top')  # /<type>
+USER_RECENTLY_PLAYED_ENDPOINT = "{}/{}/{}".format(USER_PROFILE_ENDPOINT,'player', 'recently-played')
+BROWSE_FEATURED_PLAYLISTS = "{}/{}/{}".format(SPOTIFY_API_URL, 'browse', 'featured-playlists')
+
 CLIENT_ID = "eaaaf83e6d3647548dcb9a8c3ffa1149"
 CLIENT_SECRET = "5d8a3852d8ec457ca10d6bfab06a6701"
 SCOPES = "user-read-currently-playing user-read-recently-played"
@@ -17,9 +23,9 @@ SCOPES = "user-read-currently-playing user-read-recently-played"
 HOST = "http://127.0.0.1"
 PORT = "8081"
 
-CURRENT_ACCESS_TOKEN = ""
-CURRENT_REFRESH_TOKEN = " "
-
+current_access_token = ""
+current_refresh_token = ""
+CURRENT_AUTH_HEADER = ""
 REDIRECT_URI = "{}:{}/callback/q".format(HOST, PORT)
 
 def authorize_app():
@@ -49,22 +55,25 @@ def authorize_user():
     if 'error' in response_data:
         return False
     
+
     access_token = response_data["access_token"]
     refresh_token = response_data["refresh_token"]
     token_type = response_data["token_type"]
     expires_in = response_data["expires_in"]
 
-    CURRENT_REFRESH_TOKEN = refresh_token
-    CURRENT_ACCESS_TOKEN = access_token
+    current_refresh_token = refresh_token
+    current_access_token = access_token
     # Use the access token to access Spotify API
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}
-    return access_token
+    # CURRENT_AUTH_HEADER = authorization_header
+    # print("HEADER: " + authorization_header)
+    return authorization_header
 
 
 def request_new_token():
     payload = {
         "grant_type" : "refresh_token",
-        "refresh_token" : CURRENT_REFRESH_TOKEN
+        "refresh_token" : current_refresh_token
     }
 
     base64encoded = base64.b64encode(("{}:{}".format(CLIENT_ID, CLIENT_SECRET)).encode())
@@ -76,5 +85,12 @@ def request_new_token():
     new_token = response_data['access_token']
     new_refresh = response_data['refresh_token']
 
-    CURRENT_ACCESS_TOKEN = new_token
-    CURRENT_REFRESH_TOKEN = new_refresh
+    current_access_token = new_token
+    current_refresh_token = new_refresh
+
+    return current_access_token
+
+def get_user_data(auth_header):
+    url = USER_PROFILE_ENDPOINT
+    resp = requests.get(url, headers=auth_header)
+    return resp.json()
