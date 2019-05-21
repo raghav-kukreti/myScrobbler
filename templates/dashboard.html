@@ -16,8 +16,9 @@
     <div class="current_song_info">
         <img class = "current_playing" src="{{current_data['item']['album']['images'][0]['url']}}" alt="">
         <h1>
-            <span>Now scrobbling: </span>{{ current_data['item']['name'] }}
+            {{ current_data['item']['name'] }}
         </h1>
+        <h3>{{ current_data['item']['album']['name'] }} by {{ current_data['item']['artists'][0]['name'] }}</h3>
     </div>
     {% endif %}
 </body>
