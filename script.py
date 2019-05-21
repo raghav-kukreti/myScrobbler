@@ -95,7 +95,7 @@ def get_users_playlists(auth_header):
 def get_current_playing(auth_header):
     url = SPOTIFY_CURRENTLY_PLAYING
     resp = requests.get(url, headers=auth_header)
-    return json.loads(str(resp.json()).replace("'", '"'))
+    return resp.json()
 
 
 # https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/

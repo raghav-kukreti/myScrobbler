@@ -32,3 +32,9 @@ body {
     text-transform: uppercase;
     white-space: normal;
 }
+
+.current_playing {
+    height: 250px;
+    border-radius: 50%;
+    background: #1db954;
+}

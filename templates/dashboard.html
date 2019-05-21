@@ -8,8 +8,12 @@
     <title>My Scrobbles</title>
 </head>
 <body>
-    <h1>Your dashboard</h1>
-    {{user_data}} <br>
-    {{current_data["timestamp"]}}
+    <!-- {{current_data}} -->
+    {% if 'error' in current_data %}
+        <h1>Access token expired</h1>
+        <h4>Login again <a href="/auth/">here</a></h4>
+    {% else %}
+    <img class = "current_playing" src="{{current_data['item']['album']['images'][0]['url']}}" alt="">
+    {% endif %}
 </body>
 </html>
