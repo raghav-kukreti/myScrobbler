@@ -34,7 +34,7 @@ def callback():
 def dashboard():
     # print(session.get('auth_header', None))
     auth_header = session.get('auth_header', None)
-    return render_template('dashboard.html', user_data=get_user_data(auth_header), current_data=get_current_playing(auth_header))
+    return render_template('dashboard.html', user_data=get_user_data(auth_header), current_data=get_current_playing(auth_header), recently_played=get_users_recently_played(auth_header))
 
 
 if __name__ == '__main__':

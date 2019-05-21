@@ -20,6 +20,13 @@
         </h1>
         <h3>{{ current_data['item']['album']['name'] }} by {{ current_data['item']['artists'][0]['name'] }}</h3>
     </div>
+
+    <div class="history_recent">
+        {% for tracks in recently_played['items'] %}
+            <li>{{ tracks['track']['name'] }}</li>
+        {% endfor %}
+    </div>
+    
     {% endif %}
 </body>
 </html>
