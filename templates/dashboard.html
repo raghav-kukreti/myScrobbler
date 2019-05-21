@@ -8,12 +8,17 @@
     <title>My Scrobbles</title>
 </head>
 <body>
-    <!-- {{current_data}} -->
+
     {% if 'error' in current_data %}
         <h1>Access token expired</h1>
         <h4>Login again <a href="/auth/">here</a></h4>
     {% else %}
-    <img class = "current_playing" src="{{current_data['item']['album']['images'][0]['url']}}" alt="">
+    <div class="current_song_info">
+        <img class = "current_playing" src="{{current_data['item']['album']['images'][0]['url']}}" alt="">
+        <h1>
+            <span>Now scrobbling: </span>{{ current_data['item']['name'] }}
+        </h1>
+    </div>
     {% endif %}
 </body>
 </html>
