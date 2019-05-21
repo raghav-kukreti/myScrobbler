@@ -2,7 +2,10 @@
 
 $header-blue: #291542; 
 $bg: #f7f7fa;
-
+@font-face {
+    font-family: 'ExtendedReg';
+    src: url('regular.otf');
+}
 *,
 *::after,
 *::before {
@@ -17,8 +20,14 @@ body {
 }
 @for $i from 1 to 6 {
     h#{$i} {
-        font-family: Poppins;
+        font-family: 'ExtendedReg';
         letter-spacing: -.2pt;
+        font-weight: normal;
+        text-transform: uppercase;
+        & > span {
+            color: #adadad;
+            text-transform: lowercase;
+        }
 
     }
 }

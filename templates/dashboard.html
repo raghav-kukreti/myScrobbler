@@ -16,9 +16,9 @@
     <div class="current_song_info">
         <img class = "current_playing" src="{{current_data['item']['album']['images'][0]['url']}}" alt="">
         <h1>
-            {{ current_data['item']['name'] }}
+            {{ current_data['item']['name'] }} &mdash; {{ current_data['item']['artists'][0]['name'] }}
         </h1>
-        <h3>{{ current_data['item']['album']['name'] }} by {{ current_data['item']['artists'][0]['name'] }}</h3>
+        <h3>{{ current_data['item']['album']['name'] }} </h3>
     </div>
 
     <div class="history_recent">

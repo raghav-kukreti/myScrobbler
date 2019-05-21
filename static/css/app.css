@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:700&display=swap");
+@font-face {
+  font-family: 'ExtendedReg';
+  src: url("regular.otf");
+}
+
 *,
 *::after,
 *::before {
@@ -13,28 +18,63 @@ body {
 }
 
 h1 {
-  font-family: Poppins;
+  font-family: 'ExtendedReg';
   letter-spacing: -.2pt;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+h1 > span {
+  color: #adadad;
+  text-transform: lowercase;
 }
 
 h2 {
-  font-family: Poppins;
+  font-family: 'ExtendedReg';
   letter-spacing: -.2pt;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+h2 > span {
+  color: #adadad;
+  text-transform: lowercase;
 }
 
 h3 {
-  font-family: Poppins;
+  font-family: 'ExtendedReg';
   letter-spacing: -.2pt;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+h3 > span {
+  color: #adadad;
+  text-transform: lowercase;
 }
 
 h4 {
-  font-family: Poppins;
+  font-family: 'ExtendedReg';
   letter-spacing: -.2pt;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+h4 > span {
+  color: #adadad;
+  text-transform: lowercase;
 }
 
 h5 {
-  font-family: Poppins;
+  font-family: 'ExtendedReg';
   letter-spacing: -.2pt;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+h5 > span {
+  color: #adadad;
+  text-transform: lowercase;
 }
 
 .auth {
