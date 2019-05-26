@@ -108,7 +108,16 @@ h5 > span {
 
 .current_playing {
   height: 250px;
-  border-radius: 50%;
+  border-radius: 10px;
   background: #1db954;
+}
+
+.current_song_info {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
 }
 /*# sourceMappingURL=app.css.map */
